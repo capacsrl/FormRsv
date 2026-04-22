@@ -96,7 +96,11 @@
 </div>
 
 <script>
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzIZFfAZ4uMhAnAnVerTQ9hvuGVTM4MBF2Gt6sPX53O5YypRI8YccgvJgE8KkX1pH87RQ/exec';
+  // =====================================================
+  // REEMPLAZÁ ESTA URL POR LA DE TU GOOGLE APPS SCRIPT
+  // =====================================================
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFb5EQg3NcG92cJJncB3WbqbzZiayzUcIbTKDKYbb7ljxJJyGXwuybGmB-HKYW2BmnJg/exec';
+  // =====================================================
 
   const canvas = document.getElementById('canvasFirma');
   const ctx = canvas.getContext('2d');
@@ -105,9 +109,8 @@
 
   function ajustarCanvas() {
     const ancho = canvas.offsetWidth;
-    const alto = 150;
     canvas.width = ancho;
-    canvas.height = alto;
+    canvas.height = 150;
     ctx.strokeStyle = '#1a1a1a';
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
@@ -120,47 +123,17 @@
   function getPos(e) {
     const r = canvas.getBoundingClientRect();
     if (e.touches) {
-      return {
-        x: e.touches[0].clientX - r.left,
-        y: e.touches[0].clientY - r.top
-      };
+      return { x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top };
     }
-    return {
-      x: e.clientX - r.left,
-      y: e.clientY - r.top
-    };
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
   }
 
-  canvas.addEventListener('mousedown', e => {
-    dibujando = true;
-    const p = getPos(e);
-    ctx.beginPath();
-    ctx.moveTo(p.x, p.y);
-  });
-  canvas.addEventListener('mousemove', e => {
-    if (!dibujando) return;
-    const p = getPos(e);
-    ctx.lineTo(p.x, p.y);
-    ctx.stroke();
-    tieneFirma = true;
-  });
+  canvas.addEventListener('mousedown', e => { dibujando = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
+  canvas.addEventListener('mousemove', e => { if (!dibujando) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); tieneFirma = true; });
   canvas.addEventListener('mouseup', () => dibujando = false);
   canvas.addEventListener('mouseleave', () => dibujando = false);
-  canvas.addEventListener('touchstart', e => {
-    e.preventDefault();
-    dibujando = true;
-    const p = getPos(e);
-    ctx.beginPath();
-    ctx.moveTo(p.x, p.y);
-  }, { passive: false });
-  canvas.addEventListener('touchmove', e => {
-    e.preventDefault();
-    if (!dibujando) return;
-    const p = getPos(e);
-    ctx.lineTo(p.x, p.y);
-    ctx.stroke();
-    tieneFirma = true;
-  }, { passive: false });
+  canvas.addEventListener('touchstart', e => { e.preventDefault(); dibujando = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }, { passive: false });
+  canvas.addEventListener('touchmove', e => { e.preventDefault(); if (!dibujando) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); tieneFirma = true; }, { passive: false });
   canvas.addEventListener('touchend', () => dibujando = false);
 
   function limpiarFirma() {
