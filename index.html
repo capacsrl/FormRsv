@@ -6,7 +6,6 @@
   <title>Recepción conforme – PIN de RSV</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: #f4f4f0;
@@ -16,7 +15,6 @@
       justify-content: center;
       padding: 2rem 1rem;
     }
-
     .card {
       background: #ffffff;
       border-radius: 14px;
@@ -26,204 +24,211 @@
       max-width: 500px;
       box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     }
-
-    .header {
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid #e8e7e0;
+    .header { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #e8e7e0; }
+    .header .subtitulo { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 4px; }
+    .header h1 { font-size: 22px; font-weight: 600; color: #1a1a1a; }
+    .campo { margin-bottom: 1rem; }
+    label { display: block; font-size: 13px; color: #555; margin-bottom: 5px; font-weight: 500; }
+    input[type="text"], input[type="date"] {
+      width: 100%; padding: 9px 12px; font-size: 14px;
+      border: 1px solid #ddd; border-radius: 8px;
+      background: #fafaf8; color: #1a1a1a; outline: none; transition: border-color 0.15s;
     }
-
-    .header .subtitulo {
-      font-size: 11px;
-      font-weight: 600;
-      color: #888;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      margin-bottom: 4px;
-    }
-
-    .header h1 {
-      font-size: 22px;
-      font-weight: 600;
-      color: #1a1a1a;
-    }
-
-    .campo {
-      margin-bottom: 1rem;
-    }
-
-    label {
-      display: block;
-      font-size: 13px;
-      color: #555;
-      margin-bottom: 5px;
-      font-weight: 500;
-    }
-
-    input[type="text"],
-    input[type="date"] {
-      width: 100%;
-      padding: 9px 12px;
-      font-size: 14px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background: #fafaf8;
-      color: #1a1a1a;
-      outline: none;
-      transition: border-color 0.15s;
-    }
-
-    input[type="text"]:focus,
-    input[type="date"]:focus {
-      border-color: #555;
-      background: #fff;
-    }
-
-    .firma-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-
-    .btn-limpiar {
-      font-size: 12px;
-      padding: 3px 10px;
-      background: transparent;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      color: #666;
-      cursor: pointer;
-    }
-
+    input[type="text"]:focus, input[type="date"]:focus { border-color: #555; background: #fff; }
+    .firma-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .btn-limpiar { font-size: 12px; padding: 3px 10px; background: transparent; border: 1px solid #ccc; border-radius: 6px; color: #666; cursor: pointer; }
     .btn-limpiar:hover { background: #f0f0ec; }
-
-    #canvasFirma {
-      width: 100%;
-      height: 130px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background: #fafaf8;
-      cursor: crosshair;
-      display: block;
-      touch-action: none;
-    }
-
-    .firma-hint {
-      font-size: 11px;
-      color: #aaa;
-      margin-top: 5px;
-    }
-
-    .declaracion {
-      background: #f7f6f2;
-      border-radius: 8px;
-      padding: 10px 12px;
-      margin: 1.25rem 0;
-    }
-
-    .declaracion label {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      cursor: pointer;
-      font-weight: 400;
-    }
-
-    .declaracion input[type="checkbox"] {
-      margin-top: 2px;
-      flex-shrink: 0;
-      width: 15px;
-      height: 15px;
-      cursor: pointer;
-    }
-
-    .declaracion span {
-      font-size: 13px;
-      color: #555;
-      line-height: 1.55;
-    }
-
-    .msg {
-      display: none;
-      font-size: 13px;
-      padding: 9px 12px;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-    }
-
+    #canvasFirma { width: 100%; height: 150px; border: 1px solid #ddd; border-radius: 8px; background: #fafaf8; cursor: crosshair; display: block; }
+    .firma-hint { font-size: 11px; color: #aaa; margin-top: 5px; }
+    .declaracion { background: #f7f6f2; border-radius: 8px; padding: 10px 12px; margin: 1.25rem 0; }
+    .declaracion label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; font-weight: 400; }
+    .declaracion input[type="checkbox"] { margin-top: 2px; flex-shrink: 0; width: 15px; height: 15px; cursor: pointer; }
+    .declaracion span { font-size: 13px; color: #555; line-height: 1.55; }
+    .msg { display: none; font-size: 13px; padding: 9px 12px; border-radius: 8px; margin-bottom: 1rem; }
     .msg-error { background: #fdecea; color: #c0392b; }
     .msg-exito { background: #eafaf1; color: #1e8449; }
-
-    .btn-enviar {
-      width: 100%;
-      padding: 11px;
-      font-size: 15px;
-      font-weight: 600;
-      background: #1a1a1a;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.15s, opacity 0.15s;
-    }
-
+    .btn-enviar { width: 100%; padding: 11px; font-size: 15px; font-weight: 600; background: #1a1a1a; color: #fff; border: none; border-radius: 8px; cursor: pointer; transition: background 0.15s, opacity 0.15s; }
     .btn-enviar:hover { background: #333; }
     .btn-enviar:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    @media (max-width: 480px) {
-      .card { padding: 1.25rem; }
-    }
   </style>
 </head>
 <body>
-
 <div class="card">
   <div class="header">
     <p class="subtitulo">Recepción conforme</p>
     <h1>PIN de RSV</h1>
   </div>
-
   <div class="campo">
     <label for="nombre">Nombre y apellido</label>
     <input type="text" id="nombre" placeholder="Ej: Juan Pérez" />
   </div>
-
   <div class="campo">
     <label for="pin">Número de PIN</label>
     <input type="text" id="pin" placeholder="Ej: 00123" />
   </div>
-
   <div class="campo">
     <label for="base_obra">Base / Obra</label>
     <input type="text" id="base_obra" placeholder="Ej: Obra Norte" />
   </div>
-
   <div class="campo">
     <label for="fecha">Fecha de recepción</label>
     <input type="date" id="fecha" />
   </div>
-
   <div class="campo">
     <div class="firma-header">
       <label style="margin:0;">Firma</label>
       <button class="btn-limpiar" onclick="limpiarFirma()">Limpiar</button>
     </div>
-    <canvas id="canvasFirma" width="470" height="130"></canvas>
+    <canvas id="canvasFirma"></canvas>
     <p class="firma-hint">Dibujá tu firma con el mouse o el dedo</p>
   </div>
-
   <div class="declaracion">
     <label>
       <input type="checkbox" id="confirma" />
       <span>Declaro haber recibido conforme el PIN de RSV asignado y me comprometo a su uso responsable.</span>
     </label>
   </div>
-
   <div class="msg msg-error" id="msgError"></div>
   <div class="msg msg-exito" id="msgExito"></div>
-
   <button class="btn-enviar" id="btnEnviar" onclick="enviarFormulario()">
     Enviar recepción conforme
   </button>
 </div>
+
+<script>
+  const SCRIPT_URL = 'TU_URL_DE_GOOGLE_APPS_SCRIPT_AQUI';
+
+  const canvas = document.getElementById('canvasFirma');
+  const ctx = canvas.getContext('2d');
+  let dibujando = false;
+  let tieneFirma = false;
+
+  function ajustarCanvas() {
+    const ancho = canvas.offsetWidth;
+    const alto = 150;
+    canvas.width = ancho;
+    canvas.height = alto;
+    ctx.strokeStyle = '#1a1a1a';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+  }
+
+  window.addEventListener('load', ajustarCanvas);
+  window.addEventListener('resize', ajustarCanvas);
+
+  function getPos(e) {
+    const r = canvas.getBoundingClientRect();
+    if (e.touches) {
+      return {
+        x: e.touches[0].clientX - r.left,
+        y: e.touches[0].clientY - r.top
+      };
+    }
+    return {
+      x: e.clientX - r.left,
+      y: e.clientY - r.top
+    };
+  }
+
+  canvas.addEventListener('mousedown', e => {
+    dibujando = true;
+    const p = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+  });
+  canvas.addEventListener('mousemove', e => {
+    if (!dibujando) return;
+    const p = getPos(e);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    tieneFirma = true;
+  });
+  canvas.addEventListener('mouseup', () => dibujando = false);
+  canvas.addEventListener('mouseleave', () => dibujando = false);
+  canvas.addEventListener('touchstart', e => {
+    e.preventDefault();
+    dibujando = true;
+    const p = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+  }, { passive: false });
+  canvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (!dibujando) return;
+    const p = getPos(e);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    tieneFirma = true;
+  }, { passive: false });
+  canvas.addEventListener('touchend', () => dibujando = false);
+
+  function limpiarFirma() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    tieneFirma = false;
+  }
+
+  document.getElementById('fecha').valueAsDate = new Date();
+
+  function mostrarMsg(tipo, texto) {
+    document.getElementById('msgError').style.display = 'none';
+    document.getElementById('msgExito').style.display = 'none';
+    const el = document.getElementById(tipo === 'error' ? 'msgError' : 'msgExito');
+    el.textContent = texto;
+    el.style.display = 'block';
+  }
+
+  function enviarFormulario() {
+    const nombre = document.getElementById('nombre').value.trim();
+    const pin = document.getElementById('pin').value.trim();
+    const base_obra = document.getElementById('base_obra').value.trim();
+    const fecha = document.getElementById('fecha').value;
+    const confirma = document.getElementById('confirma').checked;
+
+    if (!nombre || !pin || !base_obra || !fecha) {
+      mostrarMsg('error', 'Por favor completá todos los campos antes de enviar.');
+      return;
+    }
+    if (!tieneFirma) {
+      mostrarMsg('error', 'Por favor dibujá tu firma en el recuadro.');
+      return;
+    }
+    if (!confirma) {
+      mostrarMsg('error', 'Debés aceptar la declaración de recepción.');
+      return;
+    }
+
+    const firmaBase64 = canvas.toDataURL('image/png');
+    const btn = document.getElementById('btnEnviar');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        timestamp: new Date().toISOString(),
+        nombre, pin, base_obra, fecha,
+        firma: firmaBase64
+      })
+    })
+    .then(() => {
+      mostrarMsg('exito', '¡Recepción registrada! Gracias, ' + nombre + '.');
+      limpiarFirma();
+      document.getElementById('nombre').value = '';
+      document.getElementById('pin').value = '';
+      document.getElementById('base_obra').value = '';
+      document.getElementById('confirma').checked = false;
+      btn.textContent = 'Enviar recepción conforme';
+      btn.disabled = false;
+    })
+    .catch(() => {
+      mostrarMsg('error', 'Error al enviar. Verificá tu conexión e intentá de nuevo.');
+      btn.textContent = 'Enviar recepción conforme';
+      btn.disabled = false;
+    });
+  }
+</script>
+</body>
+</html>
